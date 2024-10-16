@@ -1,9 +1,9 @@
-pipeline {
+pipeline { 
     agent any
     tools {
         maven 'M2_HOME'
     }                                                
-    
+
     stages {
         stage('Git Checkout') {
             steps {
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 echo 'This stage will log into Dockerhub' 
                 withCredentials([usernamePassword(credentialsId: 'Dockerlogin', passwordVariable: 'docker-pass', usernameVariable: 'docker-login')]) {
-                    sh 'docker login -u ${Docker-login} -p ${docker-pass}'
+                    sh 'echo ${docker-pass} | docker login -u ${docker-login} --password-stdin'
                 }
             }
         }
