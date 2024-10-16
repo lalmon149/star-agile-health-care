@@ -42,14 +42,15 @@ pipeline {
             }
         }
         
-        stage('Login to Dockerhub') {
-            steps {
-                echo 'This stage will log into Dockerhub' 
-                withCredentials([usernamePassword(credentialsId: 'Dockerlogin', passwordVariable: 'docker-pass', usernameVariable: 'docker-login')]) {
-                sh 'docker login -u ${docker-login} -p ${docker-pass}'
+      stage('Login to Dockerhub') {
+    steps {
+        echo 'This stage will log into Dockerhub' 
+        withCredentials([usernamePassword(credentialsId: 'Dockerlogin', passwordVariable: 'docker_pass', usernameVariable: 'docker_login')]) {
+            sh 'echo $docker_pass | docker login -u $docker_login --password-stdin'
+                            }
+                      }
                   }
-            }
-        }
+
         
         stage('Docker Push Image') {
             steps {
